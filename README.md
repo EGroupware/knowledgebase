@@ -27,14 +27,21 @@ Three-pane layout, modeled on the mail app:
   owner, modified date, views, status (draft/published) badge. Actions:
   view/edit/publish/delete/related, matching phpbrain's `maintain_articles` action set but
   as the primary view, not an admin-only screen.
-- **Right pane**: renders the selected document (Markdown→HTML or raw HTML depending on
-  `kb_content_type`), with related-documents/attachments/history below it (comments/ratings
-  deferred, see §8). If a **category node** (not a specific document) is selected and that
-  category has a
-  start-document configured, show that document by default instead of a blank state.
-- **Edit**: inline in the right pane (like mail's compose-in-pane), not a separate popup —
-  matches the "3-pane like mail" brief. Body widget swaps between the markdown editor and
-  the HTML editor based on `kb_content_type` (see §6).
+- **Right pane**: **view only, minimal chrome** (ralf) — renders the selected document
+  (Markdown→HTML or raw HTML depending on `kb_content_type`), with related-documents/
+  attachments/history below it (comments/ratings deferred, see §8). No inline editing
+  controls here at all; the pane's only job is reading. If a **category node** (not a
+  specific document) is selected and that category has a start-document configured, show
+  that document by default instead of a blank state.
+- **Edit**: **a separate popup, not inline** (ralf, revised from an earlier inline-in-pane
+  plan) — opening "edit" (or "add") opens a tabbed popup dialog, the same shape the app's
+  CRUD skeleton already uses (`knowledgebase.edit`, `Et2Etemplate`-style popup with an
+  `<et2-tabbox>`). This is deliberate, not just reusing what's already there: a popup means
+  several documents can be edited at once (several popups open simultaneously), which a
+  single inline pane can't do. **The first tab is always the document-editing tab itself**
+  (title/category/status/content) — other aspects (links, attachments, history, ...) are
+  later tabs, never ahead of it. Body widget swaps between the markdown editor and the HTML
+  editor based on `kb_content_type` (see §6).
 
 No app currently renders a category tree in its sidebox, but this isn't new widget work:
 `Et2Tree`/`Et2TreeDropdown` (`api/js/etemplate/Et2Tree/`) is already a generic tree widget
@@ -375,3 +382,9 @@ transformation, not a copy:
   just internal bookkeeping (ralf) — see §9.
 - 2026-09-09: "restore this version" generalized to a cross-app idea and explicitly
   postponed, not just an unscheduled nice-to-have (ralf) — see §3/§8.
+- 2026-09-09: revised the editing UX — the document-view pane is view-only with minimal
+  chrome, editing happens in a separate tabbed popup instead of inline, specifically so
+  multiple documents can be edited at once (several popups open simultaneously); the
+  document-editing tab is always first in that popup, other tabs (links, etc.) follow it
+  (ralf) — see §1. Matches the CRUD skeleton's existing popup-based edit/add actions
+  (`knowledgebase/src/Ui.php`), so no code change was needed for this, only the doc.
