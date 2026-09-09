@@ -1,7 +1,10 @@
 # Knowledgebase: new app design (supersedes `phpbrain` and `wiki`)
 
-## Status: Design phase, iterating with ralf. No code written yet. This doc is the living
-spec — update it as decisions change rather than tracking them only in conversation.
+## Status: Design phase, iterating with ralf. A first CRUD skeleton (schema, `Bo`/`Ui`/
+`Hooks`, popup-based edit templates) exists but is not yet installed/tested end to end -
+none of the real features below (ACL tiers, history tracking, search) are built yet. This
+doc is the living spec — update it as decisions change rather than tracking them only in
+conversation.
 
 Goal: a single new `knowledgebase` app that replaces both the deprecated `phpbrain`
 ("Knowledge Base") and `wiki` apps, covering the important/used features of both without
@@ -14,6 +17,21 @@ Research behind this doc: full method/schema inventories of `phpbrain` and `wiki
 model, ACL, categories, features, UI, legacy-pattern call-outs), plus a framework scan of
 `Api\Storage`/`Api\Storage\History`/`Api\Categories`/`Api\Acl` and the `Infolog\Storage`
 template. Findings are folded into the sections below rather than kept as separate reports.
+
+## UI mockup
+
+Illustrative mockups (not final pixel design) matching the real EGroupware framework
+chrome, to make §1 below easier to discuss before it's actually built in eTemplates.
+
+**Main view** — category tree, document list, and a view-only reading pane (no inline
+editing controls):
+
+![Main view: category tree, document list, view-only reading pane](doc/images/main-view.png)
+
+**Edit popup** — opened via the Edit button in the reading pane; several can be open at
+once. Content tab (title/category/status/summary/body) is always first, Links after:
+
+![Edit popup: tabbed dialog, Content tab first, Links second](doc/images/edit-popup.png)
 
 ## 1. UI shape
 
