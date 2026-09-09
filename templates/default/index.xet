@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay PUBLIC "-//EGroupware GmbH//eTemplate 2.0//EN" "https://www.egroupware.org/etemplate2.0.dtd">
+<overlay>
+	<template id="knowledgebase.index.rows" template="" lang="" group="0" version="26.1">
+		<grid width="100%">
+			<columns>
+				<column width="15"/>
+				<column width="30%"/>
+				<column width="15%"/>
+				<column width="80"/>
+				<column width="120"/>
+				<column width="120"/>
+			</columns>
+			<rows>
+				<row class="th">
+					<nextmatch-sortheader label="#" id="kb_id"/>
+					<nextmatch-header label="Title" id="kb_title"/>
+					<et2-nextmatch-header  label="Category" id="cat_id"></et2-nextmatch-header>
+					<nextmatch-sortheader label="Status" id="kb_status"/>
+					<et2-vbox>
+						<nextmatch-sortheader label="Created" id="kb_created"/>
+						<et2-nextmatch-header-account  id="account_id"></et2-nextmatch-header-account>
+					</et2-vbox>
+					<et2-vbox>
+						<nextmatch-sortheader label="Last modified" id="kb_modified"/>
+						<et2-nextmatch-header-account  id="kb_modifier"></et2-nextmatch-header-account>
+					</et2-vbox>
+				</row>
+				<row class="$row_cont[class]">
+					<et2-description  id="${row}[kb_id]"></et2-description>
+					<et2-description  id="${row}[kb_title]"></et2-description>
+					<et2-select-cat  id="${row}[cat_id]" readonly="true"></et2-select-cat>
+					<et2-description  id="${row}[kb_status]"></et2-description>
+					<et2-vbox>
+						<et2-date-time  id="${row}[kb_created]" readonly="true"></et2-date-time>
+						<et2-select-account  id="${row}[account_id]" readonly="true"></et2-select-account>
+					</et2-vbox>
+					<et2-vbox>
+						<et2-date-time  id="${row}[kb_modified]" readonly="true"></et2-date-time>
+						<et2-select-account  id="${row}[kb_modifier]" readonly="true"></et2-select-account>
+					</et2-vbox>
+				</row>
+			</rows>
+		</grid>
+	</template>
+	<template id="knowledgebase.index.add" template="" lang="" group="0" version="26.1">
+		<et2-button  statustext="Add" id="add" onclick="egw(window).openPopup(egw::link('/index.php','menuaction=knowledgebase.EGroupware\\Knowledgebase\\Ui.edit'),'640','480','_blank','knowledgebase',null,true); return false;" noSubmit="true"></et2-button>
+	</template>
+	<template id="knowledgebase.index" template="" lang="" group="0" version="26.1">
+		<nextmatch id="nm" options="knowledgebase.index.rows" header_left="knowledgebase.index.add"/>
+	</template>
+</overlay>

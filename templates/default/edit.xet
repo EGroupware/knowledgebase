@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay PUBLIC "-//EGroupware GmbH//eTemplate 2.0//EN" "https://www.egroupware.org/etemplate2.0.dtd">
+<overlay>
+	<template id="knowledgebase.edit.content" template="" lang="" group="0" version="26.1">
+		<grid width="100%">
+			<columns>
+				<column width="100"/>
+				<column/>
+			</columns>
+			<rows>
+				<row>
+					<et2-description  for="kb_summary" value="Summary"></et2-description>
+					<et2-textbox  id="kb_summary" maxlength="500"></et2-textbox>
+				</row>
+				<row>
+					<et2-description  for="kb_content_type" value="Format"></et2-description>
+					<et2-select  id="kb_content_type" emptyLabel="">
+						<option value="markdown">Markdown</option>
+						<option value="html">HTML</option>
+					</et2-select>
+				</row>
+				<row>
+					<et2-vbox  span="all" width="100%">
+						<et2-textarea  id="kb_content" markdown="true" rows="14" cols="70"></et2-textarea>
+					</et2-vbox>
+				</row>
+			</rows>
+		</grid>
+	</template>
+	<template id="knowledgebase.edit.links" template="" lang="" group="0" version="26.1">
+		<grid width="100%" overflow="auto">
+			<columns>
+				<column width="99%"/>
+			</columns>
+			<rows>
+				<row>
+					<et2-link-to  id="link_to"></et2-link-to>
+				</row>
+				<row class="th">
+					<et2-description  value="Existing links"></et2-description>
+				</row>
+				<row>
+					<et2-link-list  id="link_to"></et2-link-list>
+				</row>
+			</rows>
+		</grid>
+	</template>
+	<template id="knowledgebase.edit" template="" lang="" group="0" version="26.1">
+		<grid width="100%">
+			<columns>
+				<column width="100"/>
+				<column/>
+			</columns>
+			<rows>
+				<row>
+					<et2-description  for="kb_title" value="Title"></et2-description>
+					<et2-textbox  id="kb_title" tabindex="1" maxlength="255" ></et2-textbox>
+				</row>
+				<row>
+					<et2-description  for="cat_id" value="Category"></et2-description>
+					<et2-hbox  width="100%">
+						<et2-select-cat  id="cat_id" application="knowledgebase"></et2-select-cat>
+						<et2-select  id="kb_status" statustext="Status">
+							<option value="draft">Draft</option>
+							<option value="published">Published</option>
+							<option value="archived">Archived</option>
+						</et2-select>
+					</et2-hbox>
+				</row>
+				<row>
+					<et2-tabbox  id="tabs" class="et2_nowrap" width="100%" span="all" tabHeight="320">
+						<tabs>
+							<tab id="content" label="Content"/>
+							<tab id="links" label="Links"/>
+						</tabs>
+						<tabpanels>
+							<template id="knowledgebase.edit.content"/>
+							<template id="knowledgebase.edit.links"/>
+						</tabpanels>
+					</et2-tabbox>
+				</row>
+				<row disabled="!@kb_id">
+					<et2-description  value="Owner"></et2-description>
+					<et2-hbox  width="100%">
+						<et2-select-account  id="account_id" readonly="true"></et2-select-account>
+						<et2-date-time  id="kb_created" readonly="true" align="right"></et2-date-time>
+					</et2-hbox>
+				</row>
+				<row disabled="!@kb_id">
+					<et2-description  value="Last modified"></et2-description>
+					<et2-hbox  width="100%">
+						<et2-select-account  id="kb_modifier" readonly="true"></et2-select-account>
+						<et2-date-time  id="kb_modified" readonly="true" align="right"></et2-date-time>
+					</et2-hbox>
+				</row>
+				<row>
+					<et2-hbox  span="all" width="100%">
+						<et2-button  accesskey="s" label="Save" id="button[save]" hideOnReadonly="true"></et2-button>
+						<et2-button  label="Apply" id="button[apply]" hideOnReadonly="true"></et2-button>
+						<et2-button  label="Cancel" id="button[cancel]" onclick="window.close(); return false;" hideOnReadonly="true"></et2-button>
+						<et2-button  align="right" label="Delete" id="button[delete]" hideOnReadonly="true"
+							onclick="Et2Dialog.confirm(widget,'Do you really want to delete this document?','Delete')"></et2-button>
+					</et2-hbox>
+				</row>
+			</rows>
+		</grid>
+	</template>
+</overlay>
